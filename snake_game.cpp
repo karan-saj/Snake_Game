@@ -34,6 +34,7 @@ public:
 		 ins(a,b);
 		 a=a,b=b+1;
 		}
+
 		createFood();
 		createPoison();
 		printSnake();
@@ -72,9 +73,7 @@ public:
 	{
 			HANDLE hOut;
 			COORD Position;
-
 			hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-
 			Position.X = 0;
 			Position.Y = 0;
 			SetConsoleCursorPosition(hOut, Position);
@@ -123,22 +122,26 @@ public:
 
 	void printSnake()	// Create function to print the snake into the board
 	{
-	struct Snake *t;
-	t=head;
-	mat[head->x][head->y]='H';
-	t=t->next;
-	while(t->next!=NULL)
-	{
-	   mat[t->x][t->y]='*';
-	   t=t->next;
+		struct Snake *t;
+		t=head;
+		mat[head->x][head->y]='H';
+		t=t->next;
+
+		while(t->next!=NULL)
+		{
+		   mat[t->x][t->y]='*';
+		   t=t->next;
+		}
+
+		mat[t->x][t->y]='T';
 	}
-	mat[t->x][t->y]='T';
-	}
+
 	void printBoard()	// Create a function to print the board onto the terminal
 	{
 	  int i,j;
 	  cout<<"Welcome To The Snake Game\nPress 'a' to move left\nPress 'd' to move right\nPress 's' to move down\nPress 'w' to move up\n";
 	  cout<<"Eat F to increase length\nCaution length decreases if you eat P\n";
+
 	  for(i=0;i<20;i++)
 	  {
 	      for(j=0;j<60;j++)
@@ -148,23 +151,28 @@ public:
 	      cout<<endl;
 	  }
 	}
+
 	void shift()	// Create a function to shift the snake on the board;
 	{
 	  struct Snake *t,*temp;
 	  t=head;
+
 	  while(t->next!=NULL)
 	  {
 	      temp=t;
 	      t=t->next;
 	  }
+
 	  temp->next=NULL;
 	  mat[t->x][t->y]=' ';
 	}
+
 	int check(int a,int b)	//Cerate a function to check if the snake has bitten itself or not
 	{
 	  if(mat[a][b]=='*')
 	      return 1;
 	}
+
 	void option(int a,int b)	//Create a fucntion to accept user input and move snake according to it
 	{
 	  int c;
@@ -174,12 +182,12 @@ public:
 	  {
 	   b=58;
 	  }
-	  ins(a,b);
 
+	  ins(a,b);
 	  char ch;
     while(1)
     {
-    	if(kbhit())
+    	if(kbhit())	// Check if user has inputed new command
         ch=getch();
       switch(ch)
       {
@@ -256,6 +264,7 @@ public:
             break;
         }
       }
+
       if(mat[a][b]=='F')
       {
           ins(a,b);
@@ -266,7 +275,8 @@ public:
           shift();
           createPoison();
       }
-      if(c==1)
+
+			if(c==1)
       {
           cout<<"\n\n*************GAME OVER*************";
           break;
