@@ -6,7 +6,7 @@
 
 using namespace std;
 
-struct Snake
+struct Snake	// Create Structure for the snake
 {
 	int x;
 	int y;
@@ -14,14 +14,14 @@ struct Snake
 };
 
 
-class Game
+class Game	// Create class to use abstraction for user
 {
 	char p;
 	char mat[20][60];
 	struct Snake *head;
 
 public:
-	Game()
+	Game()	// Create constructor to start the Snake Game
 	{
 		head=NULL;
 		createBoard();
@@ -41,7 +41,7 @@ public:
 		option(a,b);
 	}
 
-	struct Snake *create(int a,int b)
+	struct Snake *create(int a,int b)	// Create function to add nodes int the snake linked list
 	{
 	  struct Snake *ptr = new Snake();
 	  ptr->x=a;
@@ -50,7 +50,7 @@ public:
 	  return(ptr);
 	}
 
-	void createBoard()
+	void createBoard()	// Create function to create the main board at begening
 	{
 		for(int i=0;i<20;i++)
 		{
@@ -68,7 +68,7 @@ public:
 		}
 	}
 
-	void clearScreen()
+	void clearScreen()	// Create function to point at start of screen to avoid flickering in terminal
 	{
 			HANDLE hOut;
 			COORD Position;
@@ -80,7 +80,7 @@ public:
 			SetConsoleCursorPosition(hOut, Position);
 	}
 
-	void createFood()
+	void createFood()	// Create function to create food in board
 	{
 	  int x=(rand()%(20-1))+(1);
 		int y=(rand()%(60-1))+(1);
@@ -93,7 +93,7 @@ public:
 	  }
 	}
 
-	void createPoison()
+	void createPoison()	// Create function to create poison in board
 	{
 	  int x=(rand()%(20-1))+(1);
 		int y=(rand()%(60-1))+(1);
@@ -106,7 +106,7 @@ public:
 	  }
 	}
 
-	void ins(int x,int y)
+	void ins(int x,int y)	// Create function to add new nodes to snake
 	{
 	  struct Snake *t,*temp;
 	  temp=create(x,y);
@@ -121,7 +121,7 @@ public:
 	  }
 	}
 
-	void printSnake()
+	void printSnake()	// Create function to print the snake into the board
 	{
 	struct Snake *t;
 	t=head;
@@ -134,7 +134,7 @@ public:
 	}
 	mat[t->x][t->y]='T';
 	}
-	void printBoard()
+	void printBoard()	// Create a function to print the board onto the terminal
 	{
 	  int i,j;
 	  cout<<"Welcome To The Snake Game\nPress 'a' to move left\nPress 'd' to move right\nPress 's' to move down\nPress 'w' to move up\n";
@@ -148,7 +148,7 @@ public:
 	      cout<<endl;
 	  }
 	}
-	void shift()
+	void shift()	// Create a function to shift the snake on the board;
 	{
 	  struct Snake *t,*temp;
 	  t=head;
@@ -160,12 +160,12 @@ public:
 	  temp->next=NULL;
 	  mat[t->x][t->y]=' ';
 	}
-	int check(int a,int b)
+	int check(int a,int b)	//Cerate a function to check if the snake has bitten itself or not
 	{
 	  if(mat[a][b]=='*')
 	      return 1;
 	}
-	void option(int a,int b)
+	void option(int a,int b)	//Create a fucntion to accept user input and move snake according to it
 	{
 	  int c;
 	  shift();
@@ -281,7 +281,7 @@ public:
 	}
 };
 
-int main()
+int main()	// Main function to call the GAME
 {
 	Game g;
 	return 0;
